@@ -17,7 +17,7 @@ const server = http.createServer(app);
 // Inicializa o Socket.io com configurações de CORS
 const io = new Server(server, {
   cors: {
-    origin: 'https://testtrumppp.netlify.app', // Para produção, especifique o domínio do frontend
+    origin: 'https://eeawdsw.netlify.app', // Para produção, especifique o domínio do frontend
     methods: ['GET', 'POST']
   }
 });
