@@ -17,14 +17,14 @@ const server = http.createServer(app);
 // Inicializa o Socket.io com configurações de CORS
 const io = new Server(server, {
   cors: {
-    origin: 'https://testssawdwasd.netlify.app', // Para produção, especifique o domínio do frontend
+    origin: '*', // Para produção, especifique o domínio do frontend
     methods: ['GET', 'POST']
   }
 });
 
 // Estado do Jogo
-let healthEsquerda = 100;
-let healthDireita = 100;
+let healthEsquerda = 1000;
+let healthDireita = 1000;
 
 // Usuários: socket.id -> username
 let users = {};
@@ -56,20 +56,20 @@ io.on('connection', (socket) => {
     console.log(`${users[socket.id]} disparou em ${side}`);
 
     if (side === 'left') {
-      healthEsquerda = Math.max(healthEsquerda - 10, 0);
+      healthEsquerda = Math.max(healthEsquerda - 1, 0);
       if (healthEsquerda === 0) {
-        io.emit('winner', { winner: 'Esquerda' });
-        // Resetar o jogo ou implementar lógica adicional
-        healthEsquerda = 100;
-        healthDireita = 100;
+        io.emit('winner', { winner: 'KAMALA' });
+        // Resetar o jogo
+        healthEsquerda = 1000;
+        healthDireita = 1000;
       }
     } else if (side === 'right') {
-      healthDireita = Math.max(healthDireita - 10, 0);
+      healthDireita = Math.max(healthDireita - 1, 0);
       if (healthDireita === 0) {
-        io.emit('winner', { winner: 'Direita' });
-        // Resetar o jogo ou implementar lógica adicional
-        healthEsquerda = 100;
-        healthDireita = 100;
+        io.emit('winner', { winner: 'TRUMP' });
+        // Resetar o jogo
+        healthEsquerda = 1000;
+        healthDireita = 1000;
       }
     }
 
@@ -91,14 +91,14 @@ io.on('connection', (socket) => {
     const user = users[socket.id];
     const message = msg.trim();
     if (message.length > 0) {
-      console.log(`Mensagem de ${user}: ${message}`);
+      console.log(`chat message: ${user}: ${message}`);
       io.emit('chat message', { username: user, message });
     }
   });
 
   // Lidar com a desconexão
   socket.on('disconnect', () => {
-    console.log('Cliente desconectado:', socket.id);
+    console.log('User disconnected:', socket.id);
     const username = users[socket.id];
     delete users[socket.id];
     io.emit('user disconnected', { username });
