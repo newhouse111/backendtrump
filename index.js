@@ -17,7 +17,7 @@ const server = http.createServer(app);
 // Inicializa o Socket.io com configurações de CORS
 const io = new Server(server, {
   cors: {
-    origin: 'https://tsttttrumppp.netlify.app', // Para produção, especifique o domínio do frontend
+    origin: 'http://electionshootout.org', // Para produção, especifique o domínio do frontend
     methods: ['GET', 'POST']
   }
 });
