@@ -17,7 +17,7 @@ const server = http.createServer(app);
 // Inicializa o Socket.io com configurações de CORS
 const io = new Server(server, {
   cors: {
-    origin: 'http://electionshootout.org', // Para produção, especifique o domínio do frontend
+    origin: '*', // Para produção, especifique o domínio do frontend
     methods: ['GET', 'POST']
   }
 });
